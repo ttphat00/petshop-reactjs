@@ -117,71 +117,67 @@ export default function Cart(){
 
     return (
         <>
-            {localStorage.getItem('cus_token') ?
-            <>
-                <Header categories={categories} />
-                <div className={clsx(styles.main)}>
-                    <div className={clsx(styles.cart)}>
-                        <h6>Bạn có {cart.products && cart.products.length} sản phẩm trong giỏ</h6>
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th>Sản phẩm trong giỏ</th>
-                                    <th>Giá bán</th>
-                                    <th>Số lượng</th>
-                                    <th>Thành tiền</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    cart.products && cart.products.map(product => {
-                                        totalCost += product.sumCost;
-                                        return(
-                                            <tr key={product._id}>
-                                                {
-                                                    products.map(prod => {
-                                                        if(product.idProduct === prod._id){
-                                                            return(
-                                                                <React.Fragment key={prod._id}>
-                                                                    <td><img style={{width: '40px', height: '40px'}} src={prod.images[0].url} alt='' />{prod.productName}</td>
-                                                                    <td>{prod.cost}</td>
-                                                                </React.Fragment>
-                                                            );
-                                                        }
-                                                    })
-                                                }
-                                                <td>
-                                                    <Button variant='light' onClick={() => {handleDecrease(product._id, product.idProduct, product.quantityPurchased)}}>-</Button>
-                                                    <input style={{width: '70px'}} type='text' value={product.quantityPurchased} readOnly />
-                                                    <Button variant='light' onClick={() => {handleIncrease(product._id, product.idProduct, product.quantityPurchased)}}>+</Button>
-                                                </td>
-                                                <td>{product.sumCost}</td>
-                                                <td><Button variant='light' onClick={() => {handleDelete(product._id)}}><FaTimes /></Button></td>
-                                            </tr>
-                                        );
-                                    })
-                                }
-                            </tbody>
-                        </Table>
-                        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                            <div className={clsx(styles.total)}>
-                                <div className={clsx(styles.row)}>
-                                    <div><b>Tổng tiền:</b></div>
-                                    <div>{totalCost} đ</div>
-                                </div>
-                                <hr />
-                                <div className={clsx(styles.row)}>
-                                    <div><b>Thành tiền:</b></div>
-                                    <div><b>{totalCost} đ</b></div>
-                                </div>
-                                <Button className='mt-4 mb-5' variant='warning' onClick={handleSubmit}>Thực hiện thanh toán</Button>
+            <Header categories={categories} />
+            <div className={clsx(styles.main)}>
+                <div className={clsx(styles.cart)}>
+                    <h6>Bạn có {cart.products && cart.products.length} sản phẩm trong giỏ</h6>
+                    <Table striped bordered hover>
+                        <thead>
+                            <tr>
+                                <th>Sản phẩm trong giỏ</th>
+                                <th>Giá bán</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                cart.products && cart.products.map(product => {
+                                    totalCost += product.sumCost;
+                                    return(
+                                        <tr key={product._id}>
+                                            {
+                                                products.map(prod => {
+                                                    if(product.idProduct === prod._id){
+                                                        return(
+                                                            <React.Fragment key={prod._id}>
+                                                                <td><img style={{width: '40px', height: '40px'}} src={prod.images[0].url} alt='' />{prod.productName}</td>
+                                                                <td>{prod.cost}</td>
+                                                            </React.Fragment>
+                                                        );
+                                                    }
+                                                })
+                                            }
+                                            <td>
+                                                <Button variant='light' onClick={() => {handleDecrease(product._id, product.idProduct, product.quantityPurchased)}}>-</Button>
+                                                <input style={{width: '70px'}} type='text' value={product.quantityPurchased} readOnly />
+                                                <Button variant='light' onClick={() => {handleIncrease(product._id, product.idProduct, product.quantityPurchased)}}>+</Button>
+                                            </td>
+                                            <td>{product.sumCost}</td>
+                                            <td><Button variant='light' onClick={() => {handleDelete(product._id)}}><FaTimes /></Button></td>
+                                        </tr>
+                                    );
+                                })
+                            }
+                        </tbody>
+                    </Table>
+                    <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+                        <div className={clsx(styles.total)}>
+                            <div className={clsx(styles.row)}>
+                                <div><b>Tổng tiền:</b></div>
+                                <div>{totalCost} đ</div>
                             </div>
+                            <hr />
+                            <div className={clsx(styles.row)}>
+                                <div><b>Thành tiền:</b></div>
+                                <div><b>{totalCost} đ</b></div>
+                            </div>
+                            <Button className='mt-4 mb-5' variant='warning' onClick={handleSubmit}>Thực hiện thanh toán</Button>
                         </div>
                     </div>
                 </div>
-                <Footer />
-            </>
-            : window.location.assign('/login')}
+            </div>
+            <Footer />
         </>
     );
 }
