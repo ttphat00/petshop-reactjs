@@ -48,59 +48,63 @@ export default function EmpPage(){
 
     return(
         <>
-            <div>
-                <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                    <Container>
-                        <Navbar.Brand style={{marginLeft: '-50px'}}><Link to='/dashboard' style={{textDecoration: 'none', color: 'white'}}>Dashboard</Link></Navbar.Brand>
-                        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                        <Navbar.Collapse id="responsive-navbar-nav">
-                            <Nav className="me-auto"></Nav>
-                            <Nav>
-                                <div className={clsx(styles.avatar)}>
-                                    <img className={clsx(styles.image)} src={avatar} alt='' />
-                                </div>
-                                <NavDropdown title={name} id="collasible-nav-dropdown">
-                                    <div className={clsx(styles.email)}>{email}</div>
-                                    <NavDropdown.Item href='/dashboard'>Xem thông tin</NavDropdown.Item>
-                                    <NavDropdown.Divider />
-                                    <NavDropdown.Item onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
-                                </NavDropdown>
-                            </Nav>
-                        </Navbar.Collapse>
-                    </Container>
-                </Navbar>
-            </div>
-            <div className={clsx(styles.main)}>
-                <div className={clsx(styles.nav)}>
-                    <ul className={clsx(styles.menuList)}>
-                        <li style={{marginBottom: '10px'}}><Link className={clsx(styles.menu)} to='my-categories'>Danh mục</Link></li>
-                        <li style={{marginBottom: '10px'}}><Link className={clsx(styles.menu)} to='my-products'>Sản phẩm</Link></li>
-                        <li style={{marginBottom: '10px'}}><Link className={clsx(styles.menu)} to='orders'>Đơn hàng</Link></li>
-                    </ul>
+            {localStorage.getItem('emp_token') ?
+            <>
+                <div>
+                    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+                        <Container>
+                            <Navbar.Brand style={{marginLeft: '-50px'}}><Link to='/dashboard' style={{textDecoration: 'none', color: 'white'}}>Dashboard</Link></Navbar.Brand>
+                            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                            <Navbar.Collapse id="responsive-navbar-nav">
+                                <Nav className="me-auto"></Nav>
+                                <Nav>
+                                    <div className={clsx(styles.avatar)}>
+                                        <img className={clsx(styles.image)} src={avatar} alt='' />
+                                    </div>
+                                    <NavDropdown title={name} id="collasible-nav-dropdown">
+                                        <div className={clsx(styles.email)}>{email}</div>
+                                        <NavDropdown.Item href='/dashboard'>Xem thông tin</NavDropdown.Item>
+                                        <NavDropdown.Divider />
+                                        <NavDropdown.Item onClick={handleLogout}>Đăng xuất</NavDropdown.Item>
+                                    </NavDropdown>
+                                </Nav>
+                            </Navbar.Collapse>
+                        </Container>
+                    </Navbar>
                 </div>
-                <div className={clsx(styles.content)}>
-                    <div className={clsx(styles.container)}>
-                        <Routes>
-                            <Route index element={
-                                <Info
-                                name={name}
-                                email={email}
-                                avatar={avatar}
-                                phone={phone}
-                                birth={birth}
-                                gender={gender}
-                                permission={permission}
-                                />
-                            } />
-                            <Route path="my-categories" element={<MyCategories />} />
-                            <Route path="my-products" element={<MyProducts />} />
-                            <Route path="create-product" element={<CreateProduct />} />
-                            <Route path="edit-product/:id" element={<EditProduct />} />
-                            <Route path="orders" element={<Orders />} />
-                        </Routes>
+                <div className={clsx(styles.main)}>
+                    <div className={clsx(styles.nav)}>
+                        <ul className={clsx(styles.menuList)}>
+                            <li style={{marginBottom: '10px'}}><Link className={clsx(styles.menu)} to='my-categories'>Danh mục</Link></li>
+                            <li style={{marginBottom: '10px'}}><Link className={clsx(styles.menu)} to='my-products'>Sản phẩm</Link></li>
+                            <li style={{marginBottom: '10px'}}><Link className={clsx(styles.menu)} to='orders'>Đơn hàng</Link></li>
+                        </ul>
+                    </div>
+                    <div className={clsx(styles.content)}>
+                        <div className={clsx(styles.container)}>
+                            <Routes>
+                                <Route index element={
+                                    <Info
+                                    name={name}
+                                    email={email}
+                                    avatar={avatar}
+                                    phone={phone}
+                                    birth={birth}
+                                    gender={gender}
+                                    permission={permission}
+                                    />
+                                } />
+                                <Route path="my-categories" element={<MyCategories />} />
+                                <Route path="my-products" element={<MyProducts />} />
+                                <Route path="create-product" element={<CreateProduct />} />
+                                <Route path="edit-product/:id" element={<EditProduct />} />
+                                <Route path="orders" element={<Orders />} />
+                            </Routes>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>
+            : window.location.assign('/login')}
         </>
     );
 }
