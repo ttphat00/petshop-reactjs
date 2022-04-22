@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import styles from './Register.module.css';
 
 export default function Register(){
+    let navigate = useNavigate();
+
     const [name, setName] = useState();
     const [phone, setPhone] = useState();
     const [email, setEmail] = useState();
@@ -42,7 +45,8 @@ export default function Register(){
             })
                 .then(res => {
                     window.alert('Đăng ký tài khoản thành công.');
-                    window.location = '/login';
+                    //window.location = '/login';
+                    navigate('/login');
                 })
                 .catch(err => {
                     window.alert('Email đã tồn tại.');

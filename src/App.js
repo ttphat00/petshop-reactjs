@@ -8,7 +8,7 @@ import PageNotFound from "./components/PageNotFound";
 import Register from "./components/Register.js";
 import CategoryPage from "./components/CategoryPage";
 import EmpToken from "./components/CheckToken/EmpToken";
-import CusToken from "./components/CheckToken/CusToken";
+import Cart from "./components/Cart";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/categories/:id" element={<CategoryPage />} />
         <Route path="/products/:id" element={<ProductDetail />} />
-        <Route path="/my-cart" element={<CusToken />} />
+        <Route path="/my-cart" element={<Cart />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

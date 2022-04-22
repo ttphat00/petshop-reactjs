@@ -2,10 +2,13 @@ import { useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { Form, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import styles from './Login.module.css';
 
 export default function Login(){
+    let navigate = useNavigate();
+
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [validated, setValidated] = useState(false);
@@ -30,14 +33,17 @@ export default function Login(){
             })
                 .then(res => {
                     if(res.data.user.permission === 'Admin'){
-                        window.location = '/admin';
+                        //window.location = '/admin';
+                        navigate('/admin');
                     }else 
                         if(res.data.user.permission === 'Nhân viên'){
                             localStorage.setItem('emp_token', res.data.accessToken);
-                            window.location = '/dashboard';
+                            //window.location = '/dashboard';
+                            navigate('/dashboard');
                         }else{
                             localStorage.setItem('cus_token', res.data.accessToken);
-                            window.location = '/';
+                            //window.location = '/';
+                            navigate('/');
                         }
                 })
                 .catch(err => {

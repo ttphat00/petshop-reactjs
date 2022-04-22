@@ -13,11 +13,14 @@ export default function Header({ categories }){
     const [email, setEmail] = useState();
     const [avatar, setAvatar] = useState();
     const [scroll, setScroll] = useState(false);
+    const [logout, setLogout] = useState(false);
 
     const handleLogout = (e) => {
         e.preventDefault();
         localStorage.removeItem('cus_token');
-        window.location.reload();
+        //window.location.reload();
+        //navigate(0);
+        setLogout(!logout);
     }
 
     useEffect(() => {
@@ -88,7 +91,7 @@ export default function Header({ categories }){
                             })
                         }
                     </ul>
-                    <div className={clsx(styles.cart)}><Link to='/my-cart' className={clsx(styles.cartIcon)}><FaShoppingCart /></Link></div>
+                    <div className={clsx(styles.cart)}><Link to={localStorage.getItem('cus_token') ? '/my-cart' : '/login'} className={clsx(styles.cartIcon)}><FaShoppingCart /></Link></div>
                     <div className={clsx(styles.login)}>
                         {localStorage.getItem('cus_token') ? (
                             <Nav style={{marginTop: '-10px', textTransform: 'none'}}>
