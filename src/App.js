@@ -9,7 +9,7 @@ import Register from "./components/Register.js";
 import CategoryPage from "./components/CategoryPage";
 import EmpToken from "./components/CheckToken/EmpToken";
 import Cart from "./components/Cart";
-
+////////////////////
 function App() {
   return (
     <GlobalStyles>
