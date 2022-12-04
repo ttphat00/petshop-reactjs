@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import styles from './Register.module.css';
+import { apiURL } from '../../config';
 
 export default function Register(){
     let navigate = useNavigate();
@@ -37,7 +38,7 @@ export default function Register(){
         event.stopPropagation();
 
         if (form.checkValidity()) {
-            axios.post('https://mypetshop4.herokuapp.com/api/auth/register', {
+            axios.post(`${apiURL}auth/register`, {
                 name,
                 email,
                 password,

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import styles from './Login.module.css';
+import { apiURL } from '../../config';
 
 export default function Login(){
     let navigate = useNavigate();
@@ -27,7 +28,7 @@ export default function Login(){
         event.stopPropagation();
 
         if (form.checkValidity()) {
-            axios.post('https://mypetshop4.herokuapp.com/api/auth/login', {
+            axios.post(`${apiURL}auth/login`, {
                 email,
                 password
             })

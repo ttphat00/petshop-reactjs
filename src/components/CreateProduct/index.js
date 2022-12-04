@@ -5,6 +5,7 @@ import { Button, Form, Row, Col } from 'react-bootstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styles from './CreateProduct.module.css';
+import { apiURL } from '../../config';
 
 export default function CreateProduct(){
     const [validated, setValidated] = useState(false);
@@ -58,7 +59,7 @@ export default function CreateProduct(){
             uploadData.append("cost", cost);
             uploadData.append("idCategory", category);
 
-            axios.post('https://mypetshop4.herokuapp.com/api/products', uploadData, {
+            axios.post(`${apiURL}products`, uploadData, {
                 headers: {
                     x_authorization: localStorage.getItem('emp_token')
                 }
@@ -74,7 +75,7 @@ export default function CreateProduct(){
     };
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/categories')
+        axios.get(`${apiURL}categories`)
             .then(res => {
                 setCategories(res.data);
                 setCategory(res.data[0]._id);

@@ -7,6 +7,7 @@ import { Nav, NavDropdown } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './Header.module.css';
+import { apiURL } from '../../config';
 
 export default function Header({ categories }){
     const [name, setName] = useState();
@@ -25,7 +26,7 @@ export default function Header({ categories }){
 
     useEffect(() => {
         if(localStorage.getItem('cus_token')){
-            axios.get('https://mypetshop4.herokuapp.com/api/users/profile', {
+            axios.get(`${apiURL}users/profile`, {
                 headers: {
                     x_authorization: localStorage.getItem('cus_token')
                 }

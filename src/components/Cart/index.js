@@ -6,6 +6,7 @@ import { FaTimes } from "react-icons/fa";
 import styles from './Cart.module.css';
 import Header from "../Header";
 import Footer from "../Footer";
+import { apiURL } from '../../config';
 
 export default function Cart(){
     let totalCost = 0;
@@ -30,7 +31,7 @@ export default function Cart(){
         })
 
         if(qp !== quantity){
-            axios.put(`https://mypetshop4.herokuapp.com/api/carts/${id}`, {
+            axios.put(`${apiURL}carts/${id}`, {
                 quantityPurchased: qp+1,
                 sumCost: (qp+1)*cost
             }, 
@@ -56,7 +57,7 @@ export default function Cart(){
                 }
             })
 
-            axios.put(`https://mypetshop4.herokuapp.com/api/carts/${id}`, {
+            axios.put(`${apiURL}carts/${id}`, {
                 quantityPurchased: qp-1,
                 sumCost: (qp-1)*cost
             }, 
@@ -75,7 +76,7 @@ export default function Cart(){
     const handleDelete = (id) => {
         const mess = window.confirm('Bạn muốn bỏ sản phẩm này ra khỏi giỏ hàng?');
         if(mess){
-            axios.delete(`https://mypetshop4.herokuapp.com/api/carts/${id}`, {
+            axios.delete(`${apiURL}carts/${id}`, {
                 headers: {
                     x_authorization: localStorage.getItem('cus_token')
                 }
@@ -88,7 +89,7 @@ export default function Cart(){
     }
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/categories')
+        axios.get(`${apiURL}categories`)
             .then(res => {
                 setCategories(res.data);
             })
@@ -96,7 +97,7 @@ export default function Cart(){
     }, [])
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/products')
+        axios.get(`${apiURL}products`)
             .then(res => {
                 setProducts(res.data);
             })
@@ -104,7 +105,7 @@ export default function Cart(){
     }, [])
 
     useEffect(() => {
-        axios.get(`https://mypetshop4.herokuapp.com/api/carts/my-cart`, {
+        axios.get(`${apiURL}carts/my-cart`, {
             headers: {
                 x_authorization: localStorage.getItem('cus_token')
             }

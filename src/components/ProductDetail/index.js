@@ -9,6 +9,7 @@ import { FaLocationArrow } from "react-icons/fa";
 import styles from './ProductDetail.module.css';
 import Header from '../Header';
 import Footer from '../Footer';
+import { apiURL } from '../../config';
 
 export default function ProductDetail(){
     const { id } = useParams();
@@ -24,7 +25,7 @@ export default function ProductDetail(){
     }
 
     const handleAddToCart = () => {
-        axios.get(`https://mypetshop4.herokuapp.com/api/carts/my-cart`, {
+        axios.get(`${apiURL}carts/my-cart`, {
             headers: {
                 x_authorization: localStorage.getItem('cus_token')
             }
@@ -43,7 +44,7 @@ export default function ProductDetail(){
                     window.alert('Sản phẩm này đã có trong giỏ hàng rồi!!!');
                 }else{
 
-                    axios.post(`https://mypetshop4.herokuapp.com/api/carts/${id}`, {
+                    axios.post(`${apiURL}carts/${id}`, {
                         quantityPurchased,
                         sumCost
                     },
@@ -68,7 +69,7 @@ export default function ProductDetail(){
     }
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/categories')
+        axios.get(`${apiURL}categories`)
             .then(res => {
                 setCategories(res.data);
             })
@@ -76,7 +77,7 @@ export default function ProductDetail(){
     }, [])
 
     useEffect(() => {
-        axios.get(`https://mypetshop4.herokuapp.com/api/products/${id}`)
+        axios.get(`${apiURL}products/${id}`)
             .then(res => {
                 for(let i=0; i<res.data.quantity; i++){
                     quantity.current.push(i+1);

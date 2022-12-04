@@ -10,6 +10,7 @@ import Orders from '../Orders';
 import CreateProduct from '../CreateProduct';
 import EditProduct from '../EditProduct';
 import Info from '../Info';
+import { apiURL } from '../../config';
 
 export default function EmpPage(){
     const [name, setName] = useState();
@@ -29,7 +30,7 @@ export default function EmpPage(){
     useEffect(() => {
         document.title = 'My Dashboard';
 
-        axios.get('https://mypetshop4.herokuapp.com/api/users/profile', {
+        axios.get(`${apiURL}users/profile`, {
             headers: {
                 x_authorization: localStorage.getItem('emp_token')
             }

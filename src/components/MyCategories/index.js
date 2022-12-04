@@ -6,6 +6,7 @@ import { FaEdit } from "react-icons/fa";
 import { FaBan } from "react-icons/fa";
 import { MDBDataTableV5 } from 'mdbreact';
 import styles from './MyCategories.module.css';
+import { apiURL } from '../../config';
 
 export default function MyCategories(){
     const [toggle, setToggle] = useState(false);
@@ -71,7 +72,7 @@ export default function MyCategories(){
         setValidated(true);
 
         if (form.checkValidity()) {
-            axios.post('https://mypetshop4.herokuapp.com/api/categories', { title }, {
+            axios.post(`${apiURL}categories`, { title }, {
                 headers: {
                     x_authorization: localStorage.getItem('emp_token')
                 }
@@ -95,7 +96,7 @@ export default function MyCategories(){
         event.stopPropagation();
 
         if (form.checkValidity()) {
-            axios.put(`https://mypetshop4.herokuapp.com/api/categories/${idCate}`, { title: cateName })
+            axios.put(`${apiURL}categories/${idCate}`, { title: cateName })
                 .then(res => {
                     console.log(res.data);
                     setShowEdit(false);
@@ -112,7 +113,7 @@ export default function MyCategories(){
     const handleDelete = (id) => {
         const mess = window.confirm("Đồng ý xóa danh mục này?");
         if(mess){
-          axios.delete(`https://mypetshop4.herokuapp.com/api/categories/${id}`)
+          axios.delete(`${apiURL}categories/${id}`)
             .then(res => {
               console.log(res.data);
               setToggle(!toggle);
@@ -122,7 +123,7 @@ export default function MyCategories(){
     }
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/categories')
+        axios.get(`${apiURL}categories`)
             .then(res => {
                 const newArr = [];
                 res.data.map(category => {

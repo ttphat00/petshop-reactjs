@@ -2,12 +2,13 @@ import axios from 'axios';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import styles from './Info.module.css';
+import { apiURL } from '../../config';
 
 export default function Info({ name, email, phone, avatar, birth, gender, permission }){
     const [myProducts, setMyProducts] = useState([]);
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/products/my-products', {
+        axios.get(`${apiURL}products/my-products`, {
             headers: {
                 x_authorization: localStorage.getItem('emp_token')
             }

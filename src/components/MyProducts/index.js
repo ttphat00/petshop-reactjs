@@ -7,6 +7,7 @@ import { FaBan } from "react-icons/fa";
 import { MDBDataTableV5 } from 'mdbreact';
 import styles from './MyProducts.module.css';
 import { Link } from 'react-router-dom';
+import { apiURL } from '../../config';
 
 export default function MyProducts(){
     const [toggle, setToggle] = useState(false);
@@ -56,7 +57,7 @@ export default function MyProducts(){
     const handleDelete = (id) => {
       const mess = window.confirm("Đồng ý xóa sản phẩm này?");
       if(mess){
-        axios.delete(`https://mypetshop4.herokuapp.com/api/products/${id}`)
+        axios.delete(`${apiURL}products/${id}`)
           .then(res => {
             console.log(res.data);
             setToggle(!toggle);
@@ -66,7 +67,7 @@ export default function MyProducts(){
     }
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/categories')
+        axios.get(`${apiURL}categories`)
             .then(res => {
               setCategories(res.data);
             })
@@ -74,7 +75,7 @@ export default function MyProducts(){
     }, []);
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/products/my-products', {
+        axios.get(`${apiURL}products/my-products`, {
             headers: {
                 x_authorization: localStorage.getItem('emp_token')
             }

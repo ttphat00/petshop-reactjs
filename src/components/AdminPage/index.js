@@ -6,6 +6,7 @@ import { FaEdit } from "react-icons/fa";
 import { FaBan } from "react-icons/fa";
 import { MDBDataTableV5 } from 'mdbreact';
 import styles from './AdminPage.module.css';
+import { apiURL } from '../../config';
 
 export default function AdminPage(){
     const [toggle, setToggle] = useState(false);
@@ -77,7 +78,7 @@ export default function AdminPage(){
     }
 
     const handleSave = () => {
-      axios.put(`https://mypetshop4.herokuapp.com/api/users/${idUser}`,{ permission })
+      axios.put(`${apiURL}users/${idUser}`,{ permission })
         .then(res => {
           console.log(res.data);
           setToggle(!toggle);
@@ -90,7 +91,7 @@ export default function AdminPage(){
     const handleDelete = (id) => {
       const mess = window.confirm("Đồng ý xóa người dùng này?");
       if(mess){
-        axios.delete(`https://mypetshop4.herokuapp.com/api/users/${id}`)
+        axios.delete(`${apiURL}users/${id}`)
           .then(res => {
             console.log(res.data);
             setToggle(!toggle);
@@ -100,7 +101,7 @@ export default function AdminPage(){
     }
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/users')
+        axios.get(`${apiURL}users`)
             .then(res => {
                 const newArr = [];
                 res.data.map(user => {

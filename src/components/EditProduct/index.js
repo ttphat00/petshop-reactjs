@@ -6,6 +6,7 @@ import { Button, Form, Row, Col } from 'react-bootstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import styles from './EditProduct.module.css';
+import { apiURL } from '../../config';
 
 export default function EditProduct(){
     const { id } = useParams();
@@ -65,7 +66,7 @@ export default function EditProduct(){
             uploadData.append("cost", cost);
             uploadData.append("idCategory", category);
 
-            axios.put(`https://mypetshop4.herokuapp.com/api/products/${id}`, uploadData)
+            axios.put(`${apiURL}products/${id}`, uploadData)
                 .then(res => {
                     window.alert('Cập nhật sản phẩm thành công!');
                     window.location = '/dashboard/my-products';
@@ -77,7 +78,7 @@ export default function EditProduct(){
     };
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/categories')
+        axios.get(`${apiURL}categories`)
             .then(res => {
                 setCategories(res.data);
             })
@@ -85,7 +86,7 @@ export default function EditProduct(){
     }, [])
 
     useEffect(() => {
-        axios.get(`https://mypetshop4.herokuapp.com/api/products/${id}`)
+        axios.get(`${apiURL}products/${id}`)
             .then(res => {
                 setProductName(res.data.productName);
                 setDescription(res.data.description);

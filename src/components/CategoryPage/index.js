@@ -7,6 +7,7 @@ import styles from './CategoryPage.module.css';
 import Header from "../Header";
 import Footer from "../Footer";
 import Products from "../Products";
+import { apiURL } from '../../config';
 
 export default function CategoryPage(){
     const { id } = useParams();
@@ -15,7 +16,7 @@ export default function CategoryPage(){
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/products')
+        axios.get(`${apiURL}products`)
             .then(res => {
                 setProducts(res.data);
             })
@@ -23,7 +24,7 @@ export default function CategoryPage(){
     }, [])
 
     useEffect(() => {
-        axios.get('https://mypetshop4.herokuapp.com/api/categories')
+        axios.get(`${apiURL}categories`)
             .then(res => {
                 setCategories(res.data);
             })
